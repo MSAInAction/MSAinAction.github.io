@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="《高可用可伸缩微服务架构》试读第一章1.6：架构的不同风格"><meta name="keywords" content="MSA"><meta name="author" content="KimmKing&amp;Chengchao&amp;Liangguizhao..."><meta name="copyright" content="KimmKing&amp;Chengchao&amp;Liangguizhao..."><title>《高可用可伸缩微服务架构》试读第一章1.6：架构的不同风格 | 高可用可伸缩微服务架构</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-架构的不同风格"><span class="toc-number">1.</span> <span class="toc-text">1.6 架构的不同风格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-1-单体架构：简单单体模式"><span class="toc-number">1.1.</span> <span class="toc-text">1.6.1 单体架构：简单单体模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-2-分布式架构：面向服务架构（SOA）"><span class="toc-number">1.2.</span> <span class="toc-text">1.6.2 分布式架构：面向服务架构（SOA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-2-1-服务与SOA"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.6.2.1 服务与SOA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-2-2-SOA战略"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.6.2.2  SOA战略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-2-3-SOA落地方式"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.6.2.3  SOA落地方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-2-4-SOA的两大基石：RPC与MQ"><span class="toc-number">1.2.4.</span> <span class="toc-text">1.6.2.4  SOA的两大基石：RPC与MQ</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-3-分布式架构：微服务架构（MSA）"><span class="toc-number">1.3.</span> <span class="toc-text">1.6.3 分布式架构：微服务架构（MSA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-3-1-什么是微服务"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.6.3.1 什么是微服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-3-2-微服务和SOA的区别"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.6.3.2 微服务和SOA的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-3-3-大规模使用微服务"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.6.3.3 大规模使用微服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他信息"><span class="toc-number">1.4.</span> <span class="toc-text">其他信息</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars3.githubusercontent.com/u/36786029?s=400&amp;u=f6812960a95b0ce8d5942f82d872c67c07904bee&amp;v=4"></div><div class="author-info__name text-center">KimmKing&amp;Chengchao&amp;Liangguizhao...</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">3</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">1</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://ws1.sinaimg.cn/large/8700af19ly1fvpabr30o6j22yo1o0q7i.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">高可用可伸缩微服务架构</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">《高可用可伸缩微服务架构》试读第一章1.6：架构的不同风格</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-06-30</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">7.4k</span><span class="post-meta__separator">|</span><span>阅读时长: 22 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="1-6-架构的不同风格"><a href="#1-6-架构的不同风格" class="headerlink" title="1.6 架构的不同风格"></a>1.6 架构的不同风格</h2><p>典型的企业级应用系统或者互联网应用系统一般都是通过Web提供一组业务服务能力。这类系统包括提供给用户操作的、运行于浏览器中、具有UI的业务逻辑展示和输入部分，运行于服务器端、用后端编程语言构建的业务逻辑处理部分，以及用于存储业务数据的关系数据库或其他类型的存储软件。</p>
+<p>根据软件系统在运行期的表现风格和部署结构，我们可以粗略地将其划分为两大类：</p>
+<p>1) 整个系统的所有功能单元，整体部署到同一个进程（所有代码可以打包成1个或多个文件），我们可以称之为“单体架构”（Monolithic Architecture）；</p>
+<p>2) 整个系统的功能单元分散到不同的进程，然后由多个进程共同提供不同的业务能力，我们称之为“分布式架构”（Distributed Architecture）；</p>
+<blockquote>
+<p>任何一个体系（产品、平台、商业模式等）如果想要发展壮大，途径只有两个模式：</p>
+</blockquote>
+<blockquote>
+<p>a) 容器模式：从外部提供越来越多的资源和能力，注入到体系的内部，不断的从内扩充自己。单体架构的系统类似这种模式。</p>
+</blockquote>
+<blockquote>
+<p>b) 生态模式：以自己的核心能力为内核，持续的在外部吸引合作者，形成一个可以不断成长的生态体系。分布式架构越来越像这种模式。</p>
+</blockquote>
+<p>再结合软件系统在整个生命周期的特点，我们可以进一步区分不同的架构风格。</p>
+<p>对于单体架构，我们根据设计期和开发实现期的不同模式和划分结构，可以分为：</p>
+<ul>
+<li><p>简单单体模式：代码层面没有拆分，所有的业务逻辑都在一个项目（project）里打包成一个二进制的编译后文件，通过这个文件进行部署，并提供业务能力；</p>
+</li>
+<li><p>MVC模式：系统内每个模块的功能组件按照不同的职责划分为模型（Model）、视图（View）、控制器（Controller）等角色，并以此来组织研发实现工作；</p>
+</li>
+<li><p>前后端分离模式：将前后端代码耦合的设计改为前端逻辑和后端逻辑独立编写实现的处理模式；</p>
+</li>
+<li><p>组件模式：系统的每一个模块拆分为一个子项目（subproject），每个模块独立编译打包成一个组件，然后所有需要的组件一起再部署到同一个容器里；</p>
+</li>
+<li><p>类库模式：A系统需要复用B系统的某些功能，这时可以直接把B系统的某些组件作为依赖库，打包到A系统来使用。</p>
+</li>
+</ul>
+<p>对于分布式架构，我们根据设计期的架构思想和运行期的不同结构，可以分为：</p>
+<ul>
+<li><p>面向服务架构（Service Oriented Architecture，SOA）：以业务服务的角度和服务总线的方式（一般是WebService与ESB）考虑系统架构和企业IT治理；</p>
+</li>
+<li><p>分布式服务架构（Distributed Service Architecture，DSA）：基于去中心化的分布式服务框架与技术，考虑系统架构和服务治理；</p>
+</li>
+<li><p>微服务架构（MicroServices Architecture，MSA）：微服务架构可以看做是面向服务架构和分布式服务架构的拓展，使用更细粒度的服务（所以叫微服务）和一组设计准则来考虑大规模的复杂系统架构设计。</p>
+</li>
+</ul>
+<p>此外，传统的企业集成领域的EAI架构模式，本身还是各个系统独立部署，但是各系统之间的部分业务使用特定的技术打通了，因此我们可以看做是单体和分布式之间的过渡状态。</p>
+<p>也有人把如上的各个架构风格总结为4个大的架构发展阶段，如图1-6所示：</p>
+<p>1）单体架构阶段</p>
+<p>2）垂直架构阶段</p>
+<p>3）SOA架构阶段</p>
+<p>4）微服务架构阶段</p>
+<p><img src="/images/16.png" alt="微服务架构发展阶段"></p>
+<p>图1-6</p>
+<h3 id="1-6-1-单体架构：简单单体模式"><a href="#1-6-1-单体架构：简单单体模式" class="headerlink" title="1.6.1 单体架构：简单单体模式"></a>1.6.1 单体架构：简单单体模式</h3><p>简单单体模式是最简单的架构风格，所有的代码全都在一个项目中。这样研发团队的任何一个人都可以随时修改任意的一段代码，或者增加一些新的代码。开发人员也可以只在自己的电脑上就可以随时开发、调试、测试整个系统的功能。也不需要额外的一些依赖条件和准备步骤，我们就可以直接编译打包整个系统代码，创建一个可以发布的二进制版本。这种方式对于一个新团队的创立初期，需要迅速开始从0到1，抓住时机实现产品最短时间推向市场，可以省去各种额外的设计，直接上手干活，争取了时间，因而是非常有意义的。</p>
+<p>但是这种简单粗暴的方式对于一个系统的长期稳定发展确实有很多坏处的。但是正如一个新出生的小动物野蛮生长，如果没有正确的教导和规则的约束，最后成为一个忠实的导盲犬还是一条携带病毒的狂犬，就不得而知了。</p>
+<p>首先，简单单体模式的系统存在代码严重耦合的问题。所有的代码都在一起，就算是按照package来切分了不同的模块，各不同模块的代码还是可以直接相互引用，这就导致了系统内的对象间依赖关系混乱，修改一处代码，可能会影响一大片的功能无法正常使用。为了保障每次上线时的可靠性，我们必须花费很多的精力做大量的回归测试，对于经常需要修改维护的系统，这种代价是可怕的。</p>
+<p>第二，简单单体模式的系统变更对部署影响大，并且这个问题是所有的单体架构系统都存在的问题。系统作为一个单体部署，每次发布的部署单元就是一个新版本的整个系统，系统内的任何业务逻辑调整都会导致整个系统的重新打包，部署、停机、再重启，进而导致了系统的停机发布时间较长。每次发布上线都是生产系统的重大变更，这种部署模式大大提升了系统风险，降低了系统的可用性。</p>
+<p>第三，简单单体模式的系统影响开发效率。如果一个使用Java的简单单体项目代码超过100万行，那么在一台笔记本电脑上修改了代码后执行自动编译，可能需要等待十分钟以上，并且内存可能不够编译过程使用，这是非常难以忍受的。</p>
+<p>第四，简单单体模式打包后的部署结构可能过于庞大，导致业务系统启动很慢，进而也会影响系统的可用性。这一条也是所有单体架构的系统都有的问题。</p>
+<p>第五，扩展性受限，也是所有单体架构的一个问题。如果任何一个业务存在性能问题，那么都需要考虑多部署几个完整的实例的集群，或者再加上负载均衡设备，才能保证整个系统的性能可以支撑用户的使用。</p>
+<p>所以，简单单体模式比较适用于规模较小的系统，特别是需要快速推出原型实现，以质量换速度的场景。</p>
+<h3 id="1-6-2-分布式架构：面向服务架构（SOA）"><a href="#1-6-2-分布式架构：面向服务架构（SOA）" class="headerlink" title="1.6.2 分布式架构：面向服务架构（SOA）"></a>1.6.2 分布式架构：面向服务架构（SOA）</h3><p>随着IT技术逐渐成为各行各业的基础性支撑技术之一，并且很多大型公司内部的IT系统规模越来越大，传统架构思想的不足越来越明显。针对如何更好的利用企业内部的各个IT系统能力，解决数据孤岛问题，整合业务功能，先是出现了企业应用集成（Enterprise Application Integration，EAI）解决方案，即通过对现有各系统的数据接口改造，实现系统互通（特别是异构系统），这样不同系统的数据就可以被整合到一起了。在大量的EAI项目实施的基础上，架构设计关注的不仅仅是单个的项目，而是企业的整个IT系统集合。架构师们以超越单体架构的分布式思想和业务服务能力的角度来看待问题，这样面向服务架构即SOA就发展起来了。</p>
+<blockquote>
+<p>2006年IBM、Oracle、SAP、普元公司等一起建立了OSOA联盟，共同制定 SCA/SDO标准。2007年4月，国际标准组织OASIS宣布成立OASIS Open Composite Services Architecture (Open CSA) 委员会，自此，OSOA的职能移转至Open CSA组织。</p>
+</blockquote>
+<blockquote>
+<p>SOA的概念最初由Gartner公司提出，2000 年以后，业界普遍认识到SOA思想的重要性。从2005年开始，SOA推广和普及工作开始加速，几乎所有关心软件行业发展的人士都开始把目光投向SOA，各大厂商也通过建立厂商间的协作组织共同努力制定中立的SOA标准：SCA/SDO规范。同时产生了一个Apache基金会顶级项目Tuscany作为SCA/SDO的参考实现。SCA和SDO构成了SOA编程模型的基础。经过10多年的广泛探索研究和实际应用，SOA本身的理论、相关技术、工具等也已经发展到成熟、稳定的阶段，在信息化系统建设时普遍采用了SOA架构思想。</p>
+</blockquote>
+<h4 id="1-6-2-1-服务与SOA"><a href="#1-6-2-1-服务与SOA" class="headerlink" title="1.6.2.1 服务与SOA"></a>1.6.2.1 服务与SOA</h4><p>面向服务架构（SOA）是一种建设企业IT生态系统的架构指导思想。SOA的关注点是服务。服务最基本的业务功能单元，由平台中立性的接口契约来定义。通过将业务系统服务化，可以将不同模块解耦，各种异构系统间可以轻松实现服务调用、消息交换和资源共享。</p>
+<p>1) 从宏观的视角来看，不同于以往的孤立业务系统，SOA强调整个企业IT生态环境是一个大的整体。整个IT生态中的所有业务服务构成了企业的核心IT资源。各系统的业务拆解为不同粒度和层次的模块和服务，服务可以组装到更大的粒度，不同来源的服务可以编排到同一个处理流程，实现非常复杂的集成场景和更加丰富的业务功能。</p>
+<p>2) 从研发的视角来看，系统的复用可以从以前代码级的粒度，扩展到业务服务的粒度；能够快速应对业务需求和集成需求的变更。</p>
+<p>3) 从管理的角度来看，SOA从更高的层次对整个企业IT生态进行统一的设计与管理，对消息处理与服务调用进行监控，优化资源配置，降低系统复杂度和综合成本，为业务流程梳理和优化提供技术支撑。</p>
+<p>在SOA体系下，应用软件被划分为具有不同功能的服务单元，并通过标准的软件接口把这些服务联系起来，以SOA架构实现的企业应用可以更灵活快速地响应企业业务变化，实现新旧软件资产的整合和复用，降低软件整体拥有成本。</p>
+<h4 id="1-6-2-2-SOA战略"><a href="#1-6-2-2-SOA战略" class="headerlink" title="1.6.2.2  SOA战略"></a>1.6.2.2  SOA战略</h4><p>SOA的实施对整个IT生态环境都有重要的影响，作为一种重大的IT变革和技术决策，必然要自上而下的进行。必须获得管理层的支持，由技术决策层面直接推动，并和技术部门、相关业务部门一起，根据目前各个IT业务系统的现状，统一规划SOA战略和分阶段目标，制定可行方案与计划步骤，逐步推进实施。</p>
+<h4 id="1-6-2-3-SOA落地方式"><a href="#1-6-2-3-SOA落地方式" class="headerlink" title="1.6.2.3  SOA落地方式"></a>1.6.2.3  SOA落地方式</h4><p>SOA的落地方式与水平，跟企业IT特点、服务能力和发展阶段直接相关。目前常见的落地方式主要有分布式服务化和集中式管理两种。</p>
+<p>1) 分布式服务化<br>互联网类型的企业，业务与技术发展快，数据基数与增量都大，并发访问量高，系统间依赖关系复杂、调用频繁，分布式服务化与服务治理迫在眉睫。通过统一的服务化技术手段，进一步实现服务的注册与寻址、服务调用关系查找、服务调用与消息处理监控、服务质量与服务降级等等。现有的一些分布式服务化技术有dubbo(基于java)、finagle(基于scala)和ICE（跨平台）等。</p>
+<p>2) 集中式管理化<br>传统企业的IT内部遗留系统包袱较重，资源整合很大一部分是需要打通新旧技术体系的任督二脉，所以更偏重于以esb作为基础支撑技术，以整合集成为核心，将各个新旧系统的业务能力逐渐的在ESB容器上聚合和集成起来。比较流行的商业ESB有IBM的WMB和oracle的osb，开源esb有mule、servicemix、jbossesb、wso2esb和openesb。</p>
+<p>商业的esb，一般来说除了功能丰富以外，配套设置都比较齐全，对于比较简单的场景来说可以做到开箱即用，维护性也比较强，但是一般来说过于复杂非常难用、内部基本是黑盒、而且很贵。<br>开源的esb，由于开发成本和通用性开放性的考虑，往往在esb server上做的比较强大、扩展性比较好，但是配套设置做的很差（这也是绝大多数开源项目共有的问题，不仅是开源esb的问题）。对企业来说可管理性非常重要，选择开源esb的话，这一块需要结合企业的实际情况，一步步的积累，下大功夫来自己做好。</p>
+<p>一方面，集中式管理的SOA，其优势在于管理和集成企业内部各处散落的业务服务能力，同时一个明显的不足在于其中心化的架构方法，并不同解决各个系统自己内部的问题。另一方面，随着自动化测试技术、轻量级容器技术等相关技术的发展，分布式服务技术越来越像微服务架构方向发展。</p>
+<blockquote>
+<p>EIP（Enterprise Integration Patterns，企业集成模式）是集成领域的圣经，也是各种MOM和ESB的理论基础。我们在MQ和ESB中常见的各种概念和术语，基本都是来自于EIP，比如消息代理、消息通道、消息端点、消息路由、消息转换、消息增强、信息分支、消息聚合、消息分解、消息重排等等，并在《企业集成模式：设计、构建及部署消息传递解决方案》一书中详细的描述了它们的内容与特点。</p>
+</blockquote>
+<blockquote>
+<p>EIP的直接实现一般叫EIP框架，开源的知名EIP框架有两个：camel和spring integration。EIP可以作为ESB的基础骨架，在这个基础上填充其他必要的部分，定制出来一个ESB容器。</p>
+<p>EIP的介绍可以看这里：<a href="http://www.enterpriseintegrationpatterns.com/" target="_blank" rel="noopener">http://www.enterpriseintegrationpatterns.com/</a></p>
+</blockquote>
+<h4 id="1-6-2-4-SOA的两大基石：RPC与MQ"><a href="#1-6-2-4-SOA的两大基石：RPC与MQ" class="headerlink" title="1.6.2.4  SOA的两大基石：RPC与MQ"></a>1.6.2.4  SOA的两大基石：RPC与MQ</h4><p>SOA关注于系统的服务化，不同系统服务间的相互通信就成为了一个重要的话题。并且随着RPC和MQ技术的发展，这两种技术逐渐成为SOA的两大基石，也是分布式技术体系里的重要基础设施。</p>
+<p>1) RPC（Remote Procedure Call，远程过程调用）<br>两个不同系统间的数据通信，往往可以通过socket+自定义数据报文来实现。但是这种方式比较繁琐，需要针对每个通信场景定义自己的数据格式和报文标准，甚至交互的行为、异常和错误的处理等等。有没有一种通用的技术手段呢？答案就是RPC技术。<br>RPC是一种通用性的系统通信手段，使得我们可以像调用本地方法一样调用远程系统提供的方法。<br>一个场景的RPC机制如图1-7：</p>
+<p><img src="/images/17.png" alt="RPC机制"></p>
+<p>图1-7</p>
+<p>RPC的调用关系里，我们把提供具体的调用方法的系统叫服务提供者（Provider），调用服务的系统称为服务消费者（Consumer）。把对象转换为以便于网络传输的二进制或文本数据的过程，叫做序列化（Serialization）；二进制或文本数据再还原为对象的过程，叫做反序列化（Deserialization）。<br>我们可以看到，典型的RPC处理机制包括两部分：</p>
+<ul>
+<li>通信协议，可以是基于tcp的，也可以是基于http的。</li>
+<li>数据格式，一般是一套序列化+反序列化机制。</li>
+</ul>
+<p>常见的RPC技术有Cobra、RMI、.NET Remoting、WebService、JSON-RPC、XML-RPC、Hessian、Thrift、Protocol Buffer、gRPC等等。按照序列化机制的特点，我们可以把RPC技术分为文本的（WebService、JSON-RPC、XML-RPC等）和二进制的（RMI、Hessian、Thrift、Protocol Buffer等）。按照常见的通信协议来看，我们又可以分为基于HTTP的（WebService、Hessian等）和基于TCP的（RMI、.NET Remoting等）。按照是否可以用于多个不同平台，又可以分为平台特定的（RMI是Java平台特定的、.NET Remoting是.NET平台特定的）和平台无关的（比如WebService、JSON-RPC、Hessian等可以用于Java.Net\PHP\Python等就是平台无关的）。<br>在Java里，我们一般可以基于JDK自带的动态代理机制+Java的对象序列化方式实现一个简单的RPC，但是由于动态代理和Java对象序列化都比较低效，导致这种方式性能较低。目前更常见的是基于AOP和代码生成技术实现stub和skeleton，然后用一个紧凑的二进制序列化方式，实现一个高效的RPC框架。</p>
+<p>按照调用方式来看，RPC有四种模式：</p>
+<ul>
+<li>RR（Request-Response）模式，又叫请求响应模式，指每个调用都要有具体的返回结果信息。</li>
+<li><p>Oneway模式，又叫单向调用模式，调用即返回，没有响应的信息。</p>
+</li>
+<li><p>Future模式，又叫异步模式，返回拿到一个Future对象，然后执行完获取到返回结果信息。</p>
+</li>
+<li><p>Callback模式，又叫回调模式，处理完请求以后，将处理结果信息作为参数传递给回调函数进行处理。</p>
+</li>
+</ul>
+<p>这四种调用模式中，前两种最常见，后两种一般是RR和Oneway方式的包装，所以从本质上看，RPC一般对于客户端的来说是一种同步的远程服务调用技术。与其相对应的，一般来说MQ恰恰是一种异步的调用技术。</p>
+<p>2) MQ（Message Queue，消息队列）<br>异步的远程调用，如果能同时存在很多个请求，该如何处理呢？进一步地，由于不能立即拿到处理结果，假若需要考虑失败策略，重试次数等，应该怎么设计呢？<br>如果有N个不同系统相互之间都有RPC调用，这时候整个系统环境就是一个很大的网状结构，依赖关系有N*(N-1)/2个。任何一个系统出问题，都会影响剩下N-1个系统，怎么降低这种耦合呢？如图1-8所示：</p>
+<p><img src="/images/18.png" alt="系统依赖关系"></p>
+<p>图1-8</p>
+<p>基于这些问题，我们发展出来了消息队列（MQ）技术，所有的处理请求先作为一个消息发送到MQ（一般我们叫做broker），接着处理消息的系统从MQ拿到消息并进行处理。这样就实现了各个系统间的解耦，同时可以把失败策略、重试等作为一个机制，对各个应用透明，直接在MQ与各调用方的应用接口层面实现即可，如图1-9所示：</p>
+<p><img src="/images/19.png" alt="基于MQ的系统依赖关系"><br>图1-9<br>一般来说，我们把发送消息的系统称为消息生产者（message producer），接受处理消息的系统称为消息消费者（message consumer）。<br>根据消息处理的特点，我们又可以总结两种消息模式：</p>
+<ul>
+<li>点对点模式（Point to Point，PTP），一个生产者发送的每一个消息，都只能有一个消费者能消费，看起来消息就像从一个点传递到了另外一个点。</li>
+<li>发布订阅模式（Publish-Subscribe，PubSub），一个生产者发送的每一个消息，都会发送到所有订阅了此队列的消费者，这样对这个消息感兴趣的系统都可以拿到这个消息。</li>
+</ul>
+<p>通过这两种消息模式的灵活应用以及功能扩展，我们可以实现各种具体的消息应用场景，比如高并发下的订单异步处理，海量日志数据的分析处理等等。如果要总结一下消息队列在各类架构设计中能起到的作用，一般有如下几点：</p>
+<ul>
+<li>为系统增加了通用性的异步业务处理能力，这个前面讨论过了。</li>
+<li>降低系统间的耦合性，无论是开发期的引用关系依赖，还是运行期的调用关系依赖，都明显简化或降低了。通信的双方只需要定义好消息的数据格式（消息头有什么字段，消息体是什么格式的数据），就可以各自开发和测试，最后再各自上线即可集成到一起。</li>
+<li>提升了系统间通信可靠性，无论是从通信本身的可靠性上（请求响应机制、重试），还是业务意义上（处理顺序、事务、失败策略），都相比RPC等方式有所增强。</li>
+<li>提升了系统的业务缓冲能力，一般又叫削峰填谷，指的是经过MQ做为中间的缓冲，如果业务量突然增大时可以先把处理请求缓冲到队列中，再根据业务消费处理能力逐个消息处理，保障了系统不会因为突然爆发的大量请求而过载瘫痪，影响系统的连续服务能力。</li>
+<li>增强了系统的扩展能力，通过消息队列处理的业务，消费端的处理能力如果不够，一般可以随时多加几个消费者来处理，从而可以直接扩展系统的业务处理能力，而不需要额外的代价。</li>
+</ul>
+<h3 id="1-6-3-分布式架构：微服务架构（MSA）"><a href="#1-6-3-分布式架构：微服务架构（MSA）" class="headerlink" title="1.6.3 分布式架构：微服务架构（MSA）"></a>1.6.3 分布式架构：微服务架构（MSA）</h3><p>随着目前互联网的飞速发展，我们发现大型项目的设计开发和维护过程中，存在如下几个重点的困难点：</p>
+<ul>
+<li>扩容困难 </li>
+</ul>
+<p>我们之前开发项目用的是虚拟机，每次上线项目需要加机器总会遇到资源不足的情况，还要走非常复杂工单审批流程，还要与运维人员不断PK，才能申请下来资源，整个流程冗长，机器资源申请困难。</p>
+<ul>
+<li><p>部署困难<br>每次上线采用专门的人进行布署，上线之前需要与上线人员沟通上线的环境，防止上线出错。</p>
+</li>
+<li><p>发布回滚困难<br>每次上线发现问题后，需要重新从SVN/GIT主干上面进行代码编译，但是有时候会因为各种问题回滚失败，而且重新编译很耗时导致回滚缓慢。</p>
+</li>
+<li><p>适配新技术困难<br>如果打算在不同的模块采用不同的语言开发，或者想在架构中做技术升级都很困难或者不支持。</p>
+</li>
+<li><p>快速开发困难<br>复杂项目中采用单体应用或者简单的分拆成2-3个系统，里面集成了太多功能模块，无法快速进行功能开发并且很容易牵一发动全身。</p>
+</li>
+<li><p>测试困难<br>测试人员没有自动化测试框架，或者Mock系统，导致只能采用简单的人工测试流程，而且还经常发生功能覆盖不全面等问题。</p>
+</li>
+<li><p>学习困难<br>业务变化日新月薪，功能和项目结构都太复杂，整个项目中的逻辑关系相互关联影响，采用的技术五花八门，技术本身的更新换代也很快，导致技术人员学习曲线非常陡峭。</p>
+</li>
+</ul>
+<p>我们把遇到以上这些问题的项目也叫做单体项目。</p>
+<h4 id="1-6-3-1-什么是微服务"><a href="#1-6-3-1-什么是微服务" class="headerlink" title="1.6.3.1 什么是微服务"></a>1.6.3.1 什么是微服务</h4><blockquote>
+<p>The microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare minimum of centralized management of these services , which may be written in different programming languages and use different data storage technologies.</p>
+</blockquote>
+<p>引用自<a href="http://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">http://martinfowler.com/articles/microservices.html</a> 通过Martin Flowler的这段微服务描述，可以抽象出以下几个关键点：</p>
+<ul>
+<li><p>由一些独立的服务共同组成应用系统</p>
+</li>
+<li><p>每个服务单独布署、独立跑在自己的进程中</p>
+</li>
+<li><p>每个服务都是独立的业务</p>
+</li>
+<li><p>分布式管理</p>
+</li>
+</ul>
+<p>通过几个关键点可以看出微服务重在独立布署和独立业务，而所谓的微服务，并不是越小越好，而是通过团队规模和业务复杂度由粗到细的划分过程，所遵循的原则是松耦合和高内聚，如图1-10所示：</p>
+<p><img src="/images/110.png" alt="微服务架构"><br>图1-10</p>
+<ul>
+<li>松耦合<br>修改一个服务不需要同时修改另一个，每个微服务都可以单独修改和布署</li>
+<li>高内聚<br>把相关的事务放在一起，把不相关的排除出去，聚集在一起的事务只能干同一件事</li>
+</ul>
+<h4 id="1-6-3-2-微服务和SOA的区别"><a href="#1-6-3-2-微服务和SOA的区别" class="headerlink" title="1.6.3.2 微服务和SOA的区别"></a>1.6.3.2 微服务和SOA的区别</h4><p>1、微服务只是一种为经过良好架构设计的SOA解决方案，是面向服务的交付方案。</p>
+<p>2、微服务更趋向于以自治的方式产生价值。</p>
+<p>3、微服务与敏捷开发的思想高度结合在一起，服务的定义更加清晰，同时减少了企业ESB开发的复杂性。</p>
+<p>4、微服务是SOA思想的一种提炼！</p>
+<p>5、SOA是重ESB，微服务是轻网关。</p>
+<h4 id="1-6-3-3-大规模使用微服务"><a href="#1-6-3-3-大规模使用微服务" class="headerlink" title="1.6.3.3 大规模使用微服务"></a>1.6.3.3 大规模使用微服务</h4><p>使用微服务也就面临着由单体项目向微服务项目过渡，而采用了微服务架构后也就意味着服务之间的调用链路会比以前延长了很多，在调用链路上发生故障的几率也就随之增大，同时调用链路越长，性能越会受影响。微服务架构中是存在很多陷阱的，并不是简单的拿来使用就可以，所以企业要大规模使用微服务不仅仅是从思想和业务上面进行合理划分，还需要诸多技术组件以及高效的运维来协同合作，如图1-11所示。</p>
+<p><img src="/images/111.png" alt="微服务架构"></p>
+<p>图1-11</p>
+<ul>
+<li>防止雪崩</li>
+</ul>
+<p>当一个服务无法承受大请求压力的时候，是否会影响所依赖的其他服务？这时候可以考虑限流等措施。</p>
+<ul>
+<li>功能降级</li>
+</ul>
+<p>当某个服务出现故障时，是否有容错手段能够让业务继续跑下去，而不影响整体应用。</p>
+<ul>
+<li>冥等</li>
+</ul>
+<p>当用户多次下同一订单时，得到的结果永远同一个。</p>
+<ul>
+<li>缓存</li>
+</ul>
+<p>当请求量较大时，为避免对数据库造成较大压力，可以适当将一些变化较小，读取量较大的数据放入缓存。</p>
+<ul>
+<li>超时</li>
+</ul>
+<p>超时时间对于调用服务来说非常重要，超时时间设置太长可能会把整体系统拖慢，而设置短了又会造成调用服务未完成而返回，我们在实际工作中需要根据业务场景进行分析，选择一个恰当的超时设定值。</p>
+<ul>
+<li>熔断</li>
+</ul>
+<p>使用熔断器（断路器），当请求下游的服务时发生了一定数量的失败后，熔断器打开，接下来的请求快速返回失败。过一段时间后再来查看下游服务是否已恢复正常，重置熔断器。</p>
+<ul>
+<li>服务隔离</li>
+</ul>
+<p>当所调用的服务发生故障的时候，上游服务能够隔离故障确保业务能够继续运行下去</p>
+<ul>
+<li>可伸缩</li>
+</ul>
+<p>当并发量较大，原有服务集群无法满足现有业务场景时，可以采用扩容策略，而当并发量较小时，服务集群可以采用缩容策略，以节省资源。</p>
+<h3 id="其他信息"><a href="#其他信息" class="headerlink" title="其他信息"></a>其他信息</h3><ul>
+<li>更多信息请参见：<a href="https://item.jd.com/12585284.html" target="_blank" rel="noopener">京东网址</a></li>
+<li>勘误信息请转到：<a href="https://github.com/MSAInAction/MSAinAction.github.io/issues" target="_blank" rel="noopener">Issue Board</a></li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">KimmKing&amp;Chengchao&amp;Liangguizhao...</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://msainaction.github.io/2019/06/30/book-1-6/">https://msainaction.github.io/2019/06/30/book-1-6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://msainaction.github.io">高可用可伸缩微服务架构</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MSA/">MSA</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2019/03/23/book-recommend/"><span>《高可用可伸缩微服务架构：基于Dubbo、Spring Cloud和ServiceMesh》推荐书评</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://ws1.sinaimg.cn/large/8700af19ly1fvpabr30o6j22yo1o0q7i.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By KimmKing&Chengchao&Liangguizhao...</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://msainaction.github.io/">微服务架构实战</a>!</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>
